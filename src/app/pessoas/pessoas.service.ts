@@ -1,8 +1,9 @@
 import { PessoaFilter } from './../filter/pessoa-filter';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Pessoa } from '../model/pessoa';
 
 @Injectable()
 export class PessoasService {
@@ -37,4 +38,32 @@ export class PessoasService {
         map((res: any) => res)
       );
   }
+
+  salvar(pessoa: Pessoa): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+
+    return this.http.post(this.pessoasUrl, pessoa, { headers })
+      .pipe(
+        map((res: any) => res)
+      );
+  }
+
+  buscarPorId(id: number): Observable<Pessoa> {
+    return this.http.get(`${this.pessoasUrl}/` + id)
+      .pipe(
+        map((res: any) => res)
+      );
+  }
+
+  atualizarPessoa(pessoa: Pessoa): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+
+    return this.http.put(this.pessoasUrl, pessoa, { headers })
+      .pipe(
+        map((res: any) => res)
+      );
+  }
+
 }

@@ -13,9 +13,11 @@
         <input type="text" class="espacamento" pInputText name="cpf" [(ngModel)]="cpf">
 
         <button pButton class="espacamento" type="button" (click)="pesquisar()" label="Pesquisar" ></button>
-        <button pButton label="Cadastrar" type="button" ></button>
+        <a pButton label="Cadastrar" routerLink="/pessoas/novo" ></a>
       </div>
   </div>
+
+  <br /><br />
 
   <div class="ui-g">
     <div class="ui-g-12">
@@ -38,11 +40,13 @@
             <td>{{pessoa.nome}}</td>
             <td  [ngClass]="'col-email'" >{{pessoa.email}}</td>
             <td>{{pessoa.cpf}}</td>
-            <td>{{pessoa.idade}}</td>
+            <td>{{recuperarIdade(pessoa.dataNascimento)}}</td>
             <td>{{quantidadeTelefones(pessoa.telefones)}}</td>
             <td [ngClass]="'col-acoes'">
-              <button pButton icon="pi pi-pencil" style="margin-right: .5em; width: 40%;" pTooltip="Editar" tooltipPosition="top"></button>
-              <button pButton icon="pi pi-trash" style="width: 40%;" pTooltip="Excluir" (click)="excluir(pessoa.id)" tooltipPosition="top"></button>
+              <a pButton icon="pi pi-pencil" style="margin-right: .5em; width: 40%;" pTooltip="Editar"
+                [routerLink]="['/pessoas', pessoa.id]" tooltipPosition="top"></a>
+              <button pButton icon="pi pi-trash" style="width: 40%;" pTooltip="Excluir" (click)="excluir(pessoa.id)"
+                tooltipPosition="top"></button>
             </td>
           </tr>
         </ng-template>

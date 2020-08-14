@@ -13,9 +13,9 @@ export class PessoasListaComponent implements OnInit {
   pessoas = [];
   nome: string;
   cpf: string;
-  pageNumber: number = 0;
-  pageSize: number = 10;
-  totalElements: number = 0;
+  pageNumber = 0;
+  pageSize = 10;
+  totalElements = 0;
 
   constructor(private pessoasService: PessoasService) {}
 
@@ -39,6 +39,15 @@ export class PessoasListaComponent implements OnInit {
   mudarPagina(event: LazyLoadEvent) {
     const pagina = event.first / event.rows;
     this.pageNumber = pagina;
+  }
+
+  recuperarIdade(dataNascimento: Date) {
+    dataNascimento = new Date(dataNascimento);
+    const dataAtual = new Date();
+
+    const idade = dataAtual.getFullYear() - dataNascimento.getFullYear();
+
+    return dataAtual.getMonth() >= dataNascimento.getMonth() ? idade : idade - 1;
   }
 
   quantidadeTelefones(telefones: object[]) {

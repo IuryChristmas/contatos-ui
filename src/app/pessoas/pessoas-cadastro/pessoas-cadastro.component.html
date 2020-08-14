@@ -1,37 +1,80 @@
 <div class="container">
 
-  <form #pessoasForm="ngForm">
+  <form #formP="ngForm" autocomplete="off" (ngSubmit)="salvar(formP.form)">
+    <p-toast></p-toast>
+
     <div class="ui-g">
       <div class="ui-g-12">
-        <h1>Cadastro de Pessoa</h1>
+        <h1>{{ editando ? 'Edição' : 'Cadastro' }} de Pessoa</h1>
       </div>
 
-      <div class="ui-g-12 ui-md-9 ui-fluid">
-        <label>Nome</label>
-        <input pInputText type="text" name="nome" ngModel #nome="ngModel" required>
+      <div class="ui-g-6 ui-md-9 ui-fluid">
+        <label style="margin-right: .5em;">Nome</label>
+        <input pInputText type="text" name="nome" [(ngModel)]="pessoa.nome" #nome="ngModel" required>
+
+        <label style="margin-right: .5em; margin-left: .5em;">Data de Nascimento</label>
+        <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="pessoa.dataNascimento" [showIcon]="true" name="dataNascimento"
+        required #dataNascimento="ngModel" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
       </div>
 
-      <div class="ui-g-6 ui-md-3 ui-fluid">
-        <label>Data de Nascimento</label>
-        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" ngModel name="dataNascimento"
-        required #dataNascimento="ngModel"></p-calendar>
+      <br />
+
+      <div class="ui-g-6  ui-md-3 ui-fluid">
+        <label style="margin-right: .5em;">CPF</label>
+        <p-inputMask mask="999.999.999-99" name="cpf" required
+        [(ngModel)]="pessoa.cpf" #cpf="ngModel"></p-inputMask>
+
+        <label style="margin-right: .5em; margin-left: .5em;">E-mail</label>
+        <input pInputText type="email" name="email" required
+        [(ngModel)]="pessoa.email" #email="ngModel">
       </div>
 
-      <div class="ui-g-12  ui-md-3 ui-fluid">
-        <label>CPF</label>
-        <input pInputText type="text" name="cpf" required
-        ngModel #cpf="ngModel">
-      </div>
-
-      <div class="ui-g-12  ui-md-3 ui-fluid">
-        <label>E-mail</label>
-        <input pInputText type="text" name="email" required
-        ngModel #email="ngModel">
-      </div>
+      <br />
 
       <div class="ui-g-12">
-        <p-button label="Salvar" type="submit" style="margin-right: .5em" [disabled]="pessoasForm.invalid"></p-button>
-        <a href="javascript;;" style="margin-left: .5em">Voltar para a pesquisa</a>
+        <label style="margin-right: .5em;">DDD</label>
+        <p-inputMask mask="99" name="ddd"
+          [(ngModel)]="telefone.ddd" #ddd="ngModel"></p-inputMask>
+
+        <label style="margin-right: .5em; margin-left: .5em;">Telefone</label>
+        <p-inputMask mask="9 9999-9999" name="numero"
+          [(ngModel)]="telefone.numero" #cpf="ngModel"></p-inputMask>
+
+        <button pButton pTooltip="Adicionar" icon="pi pi-plus-circle" style="margin-left: .5em;" (click)="adicionarTelefone()"
+          tooltipPosition="top" type="button"></button>
+      </div>
+
+      <br />
+
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <p-table [value]="telefones" [responsive]="true" [rows]="4">
+            <ng-template pTemplate="header">
+              <tr>
+                  <th>ID</th>
+                  <th>DDD</th>
+                  <th>Telefone</th>
+                  <th [ngClass]="'col-acoes'">Ações</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-telefone>
+              <tr>
+                <td>{{telefone.id}}</td>
+                <td>{{telefone.ddd}}</td>
+                <td>{{telefone.numero}}</td>
+                <td [ngClass]="'col-acoes'">
+                  <a pButton icon="pi pi-trash" style="width: 40%;" pTooltip="Excluir" (click)="excluirTelefone(telefone)"
+                    tooltipPosition="top"></a>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+      <br />
+      <div class="ui-g-12">
+        <p-button label="Salvar" type="submit" [disabled]="formP.invalid"></p-button>
       </div>
     </div>
 
