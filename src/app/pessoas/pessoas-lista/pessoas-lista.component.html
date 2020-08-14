@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="ui-g">
+
+      <div class="ui-g-12">
+        <h1>Pessoas</h1>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Nome </label>
+        <input type="text" class="espacamento" pInputText name="nome" [(ngModel)]="nome" >
+
+        <label>CPF </label>
+        <input type="text" class="espacamento" pInputText name="cpf" [(ngModel)]="cpf">
+
+        <button pButton class="espacamento" type="button" (click)="pesquisar()" label="Pesquisar" ></button>
+        <button pButton label="Cadastrar" type="button" ></button>
+      </div>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table [value]="pessoas" [paginator]="true" [rows]="pageSize" [responsive]="true" [lazy]="true"
+        [totalRecords]="totalElements" (onLazyLoad)="mudarPagina($event)" emptyMessage="Nenhum registro encontrado">
+        <ng-template pTemplate="header">
+          <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th [ngClass]="'col-email'">E-mail</th>
+              <th>CPF</th>
+              <th>Idade</th>
+              <th>Quantidade de Telefones</th>
+              <th [ngClass]="'col-acoes'">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pessoa>
+          <tr>
+            <td>{{pessoa.id}}</td>
+            <td>{{pessoa.nome}}</td>
+            <td  [ngClass]="'col-email'" >{{pessoa.email}}</td>
+            <td>{{pessoa.cpf}}</td>
+            <td>{{pessoa.idade}}</td>
+            <td>{{quantidadeTelefones(pessoa.telefones)}}</td>
+            <td [ngClass]="'col-acoes'">
+              <button pButton icon="pi pi-pencil" style="margin-right: .5em; width: 40%;" pTooltip="Editar" tooltipPosition="top"></button>
+              <button pButton icon="pi pi-trash" style="width: 40%;" pTooltip="Excluir" (click)="excluir(pessoa.id)" tooltipPosition="top"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+  </div>
+</div>
