@@ -10,7 +10,7 @@
         <input type="text" class="espacamento" pInputText name="nome" [(ngModel)]="nome" >
 
         <label>CPF </label>
-        <input type="text" class="espacamento" pInputText name="cpf" [(ngModel)]="cpf">
+        <p-inputMask mask="999.999.999-99" name="cpf" [(ngModel)]="cpf" ></p-inputMask>
 
         <button pButton class="espacamento" type="button" (click)="pesquisar()" label="Pesquisar" ></button>
         <a pButton label="Cadastrar" routerLink="/pessoas/novo" ></a>
