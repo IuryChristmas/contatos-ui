@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  urlApi: 'https://contatos-angular.herokuapp.com/'
+  urlApi: 'https://contatos-agenda-api.herokuapp.com/'
 };
